@@ -5,7 +5,7 @@ import { getUsers, getUser } from './controllers/usersController.js'
 import { authValidation } from './validations/authValidation.js'
 import multer from 'multer'
 
-mongoose.connect('mongodb+srv://Roman:20roman20@cluster0.aev28q2.mongodb.net/auth?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Mongoose Ok'))
 
 const app = express()
