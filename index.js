@@ -5,7 +5,7 @@ import { getUsers, getUser } from './controllers/usersController.js'
 import { authValidation } from './validations/authValidation.js'
 import multer from 'multer'
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect('mongodb+srv://Roman:20roman20@cluster0.aev28q2.mongodb.net/blog?retryWrites=true&w=majority')
     .then(() => console.log('Mongoose Ok'))
 
 const app = express()
@@ -25,7 +25,7 @@ const upload = multer({ storage })
 
 app.use(express.json())
 
-app.get((req, res) => {
+app.use((req, res) => {
     res.send('fdfdfdfd')
 })
 
