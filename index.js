@@ -25,6 +25,10 @@ const upload = multer({ storage })
 
 app.use(express.json())
 
+app.get((req, res) => {
+    res.send('fdfdfdfd')
+})
+
 app.use(express.static('static'))
 
 app.put('/user', getUser)
