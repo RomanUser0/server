@@ -35,9 +35,9 @@ app.use(cors({
     ],
     credentials: true,
  }));
-// app.use((req, res) => {
-//     res.send('fdfdfdfd')
-// })
+ app.use((req, res) => {
+     res.send('fdfdfdfd')
+ })
 
 app.use(express.static('static'))
 
