@@ -4,8 +4,13 @@ import { auth, getMe, login, uploadAvatar, updateStatus, uploadMusic } from './c
 import { getUsers, getUser } from './controllers/usersController.js'
 import { authValidation } from './validations/authValidation.js'
 import multer from 'multer'
+import config from 'config'
+import cors from 'cors'
 
-mongoose.connect('mongodb+srv://Roman:20roman20@cluster0.aev28q2.mongodb.net/blog?retryWrites=true&w=majority')
+
+const PORT = process.env.PORT || config.get('serverPort')
+
+mongoose.connect('mongodb+srv://Roman:20roman20@cluster0.aev28q2.mongodb.net/auth?retryWrites=true&w=majority')
     .then(() => console.log('Mongoose Ok'))
 
 const app = express()
@@ -24,18 +29,23 @@ const upload = multer({ storage })
 
 
 app.use(express.json())
-
-app.use((req, res) => {
-    res.send('fdfdfdfd')
-})
+app.use(cors({
+    origin: [
+       'http://localhost:3000'
+    ],
+    credentials: true,
+ }));
+// app.use((req, res) => {
+//     res.send('fdfdfdfd')
+// })
 
 app.use(express.static('static'))
 
 app.put('/user', getUser)
 app.get('/users', getUsers)
 app.put('/status', updateStatus)
-app.post('/upload', upload.single('image'), uploadAvatar)
-app.post('/upload/music', upload.single('music'), uploadMusic)
+app.post('/static', upload.single('image'), uploadAvatar)
+app.post('/static/music', upload.single('music'), uploadMusic)
 app.post('/login', authValidation, login)
 app.post('/auth', authValidation, auth)
 app.put('/auth/me', getMe)
@@ -44,6 +54,6 @@ app.put('/auth/me', getMe)
 
 
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log('Server Ok')
+app.listen(process.env.PORT || PORT, () => {
+    console.log('Server Ok', PORT)
 })
