@@ -31,7 +31,7 @@ const upload = multer({ storage })
 app.use(express.json())
 app.use(cors({
     origin: [
-       'http://localhost:3000'
+       'https://frontend-dwgm.vercel.app'
     ],
     credentials: true,
  }));
